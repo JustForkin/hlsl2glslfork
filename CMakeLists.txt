@@ -135,7 +135,7 @@ if (WIN32)
                       )
     
     SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /D\"_HAS_ITERATOR_DEBUGGING=0\" /D\"_SECURE_SCL=0\" /D\"_CRT_SECURE_NO_WARNINGS\"")
-    SET(TEST_LIBS opengl32.lib)
+    # SET(TEST_LIBS opengl32.lib)
 elseif (APPLE)
     set(OSDEPENDENT_FILES
       hlslang/OSDependent/Mac/osinclude.h
@@ -161,9 +161,9 @@ elseif (APPLE)
                          WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/hlslang/MachineIndependent
                          COMMENT "Executing flex on hlslang.l"
                       )
-    FIND_LIBRARY(OPENGL_LIBRARY OpenGL)
-	FIND_LIBRARY(COCOA_LIBRARY Cocoa)
-    SET(TEST_LIBS ${OPENGL_LIBRARY} ${COCOA_LIBRARY})
+    # FIND_LIBRARY(OPENGL_LIBRARY OpenGL)
+    # FIND_LIBRARY(COCOA_LIBRARY Cocoa)
+    # SET(TEST_LIBS ${OPENGL_LIBRARY} ${COCOA_LIBRARY})
 elseif (UNIX)
     set(OSDEPENDENT_FILES
       hlslang/OSDependent/Linux/osinclude.h
@@ -190,7 +190,7 @@ elseif (UNIX)
                          COMMENT "Executing flex on hlslang.l"
                       )
     SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -ggdb")
-    SET(TEST_LIBS GL glut GLEW pthread)
+    # SET(TEST_LIBS GL glut GLEW pthread)
 endif ()
 
 
@@ -208,11 +208,3 @@ add_library(hlsl2glsl
                 ${OSDEPENDENT_FILES}
                 ${MACHINE_INDEPENDENT_GENERATED_SOURCE_FILES}
            )
-
-
-include_directories(
-    ${INCLUDE_FILES} 
-)
-add_executable(hlsl2glsltest tests/hlsl2glsltest/hlsl2glsltest.cpp)
-
-target_link_libraries(hlsl2glsltest hlsl2glsl ${TEST_LIBS})
